@@ -15,6 +15,7 @@ class Subscribers extends AbstractMethod
     const METHOD_SUBSCRIBERS = 'Subscribers';
     const METHOD_REMOVED_SUBSCRIBERS = 'RemovedSubscribers';
     const METHOD_SNOOZED_SUBSCRIBERS = 'SnoozedSubscribers';
+    const METHOD_SEGMENT_SIZE = 'GetSegmentSize';
 
     const MODE_AddAndUpdate = 'AddAndUpdate';
     const MODE_AddAndReplace = 'AddAndReplace';
@@ -282,6 +283,28 @@ class Subscribers extends AbstractMethod
             $xmlPropertyValue = $xmlProperty->addChild('Value', $property->value);
             $xmlPropertyValue->addAttribute('xmlns:xsi:type', 'xs:' . $property->type);
         }
+
+        return $xml;
+    }
+
+    /**
+     * @param $id
+     * @return \SimpleXMLElement
+     */
+    public function getSegmentSize($id)
+    {
+        $url = $this->buildApiUrl(self::METHOD_SEGMENT_SIZE);
+
+        $params = [
+            'apiKey' => $this->connection->getKey(),
+            'id' => $id
+        ];
+
+        $response = $this->connection->get($url, $params);
+        $this->connection->isResponseValid($response);
+
+        $formattedResponse = $this->formatResponse($response);
+        $xml = new \SimpleXMLElement($formattedResponse);
 
         return $xml;
     }
