@@ -62,5 +62,19 @@
             </Tags>
             {% endif %}
         </Content>
+
+        {% if data.delivery is defined and data.delivery is not empty %}
+            <DeliverySettings>
+                {% if data.delivery.throttling is defined and data.delivery.throttling %}
+                    <ThrottlingMethod>{{ data.delivery.throttling }}</ThrottlingMethod>
+                {% endif %}
+
+                {% if data.delivery.throttling == "MANUAL" and data.delivery.throttlingTime is defined and data.delivery.throttlingTime %}
+                    <ManualThrottlingTime>{{ data.delivery.throttlingTime }}</ManualThrottlingTime>
+                {% else %}
+                    <ManualThrottlingTime>2</ManualThrottlingTime>
+                {% endif %}
+            </DeliverySettings>
+        {% endif %}
     </Data>
 </ApiRequest>

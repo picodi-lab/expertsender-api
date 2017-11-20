@@ -51,9 +51,13 @@ class Messages extends AbstractMethod
     public function setNewsletter($data){
         $requestUrl = $this->buildApiUrl(self::METHOD_NEWSLLETER);
 
-        $requestBody = $this->renderRequestBody('Newsletters/Newsletters', array_merge(['data' => $data], [
-            'apiKey' => $this->connection->getKey(),
-        ]));
+        $requestBody = $this->renderRequestBody(
+            'Newsletters/Newsletters',
+            array_merge(
+                ['data' => $data],
+                ['apiKey' => $this->connection->getKey()]
+            )
+        );
 
 
         $response = $this->connection->post($requestUrl, $requestBody);
