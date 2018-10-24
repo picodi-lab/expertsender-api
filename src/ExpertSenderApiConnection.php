@@ -119,11 +119,13 @@ class ExpertSenderApiConnection
 
         if (!$ok) {
             $rXml = $this->prepareResponse($response);
-            $errorCode = (string)$rXml->xpath('//ErrorMessage/Code')[0];
-            $errorMessage = (string)$rXml->xpath('//ErrorMessage/Message')[0];
-            $this->errorLog[] = [
-                'code' => $errorCode, 'message' => $errorMessage
-            ];
+            if ($rXml instanceof \SimpleXMLElement) {
+                $errorCode = (string)$rXml->xpath('//ErrorMessage/Code')[0];
+                $errorMessage = (string)$rXml->xpath('//ErrorMessage/Message')[0];
+                $this->errorLog[] = [
+                    'code' => $errorCode, 'message' => $errorMessage
+                ];
+            }
             return false;
         }
 
