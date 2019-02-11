@@ -34,6 +34,7 @@ class Activities extends AbstractMethod
         $defaultParams = [
             'apiKey' => $this->connection->getKey(),
             'date' => $date, //validate ?
+            'channel' => 'Email',
             'type' => $type, //validate ?
             'http_errors' => false,
             'returnGuid' => 'true',
