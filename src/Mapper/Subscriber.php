@@ -36,8 +36,8 @@ class Subscriber
         if (isset($data['Ip'])) {
             $this->setIp($data['Ip']);
         }
-        if (isset($data['BlackList'])) {
-            $this->setInBlackList($data['BlackList']);
+        if (isset($data['BlackListEmail'])) {
+            $this->setInBlackList($data['BlackListEmail']);
         }
         if (isset($data['Properties'])) {
             if ($data['Properties'] instanceof \SimpleXMLElement) {
