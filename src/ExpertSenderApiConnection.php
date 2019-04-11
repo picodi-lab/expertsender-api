@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 class ExpertSenderApiConnection
 {
     /** @var string api url */
-    protected $url = 'https://api2.esv2.com/Api/';
+    protected $url = 'https://api3.esv2.com/Apiv2/';
 
     /** @var  string api key */
     protected $key;
