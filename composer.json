@@ -13,8 +13,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "guzzlehttp/guzzle" : "6.1.*",
+        "php": ">=7.1.0",
+        "guzzlehttp/guzzle" : "~6.3",
+        "guzzlehttp/psr7": "^1.4",
         "twig/twig": "1.*"
     },
     "minimum-stability": "dev",
