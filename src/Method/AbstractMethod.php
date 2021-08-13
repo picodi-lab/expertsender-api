@@ -3,7 +3,12 @@
 namespace PicodiLab\Expertsender\Method;
 
 use GuzzleHttp\Psr7\Response;
+use PicodiLab\Expertsender\ExpertSenderApi;
 use PicodiLab\Expertsender\ExpertSenderApiConnection;
+use ReflectionClass;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\Loader\FilesystemLoader;
 
 abstract class AbstractMethod
 {
@@ -57,14 +62,18 @@ abstract class AbstractMethod
      */
     public function renderRequestBody($template, Array $params)
     {
-        $twig = new \Twig_Environment(new \Twig_Loader_String(), array(
+        $reflector = new ReflectionClass(ExpertSenderApi::class);
+        $fn = $reflector->getFileName();
+
+        $templatePath = dirname($fn) . '/Template/';
+
+        $loader = new FilesystemLoader($templatePath);
+        $twig = new Environment($loader, [
             'autoescape' => false,
-        ));
+        ]);
 
-        $templatePath = dirname(dirname(__FILE__)) . '/Template/' . $template . '.xml.twig';
-        $templateOutput = file_get_contents($templatePath);
-
-        $output = $twig->render($templateOutput, $params);
+        $temp = $twig->load($template . '.xml.twig');
+        $output = $temp->render($params);
 
         return $output;
     }
